@@ -1,1 +1,25 @@
-<p>login works!</p>
+ <div>
+    <div style="padding-top: 100px; display: flex;">
+            <span class="fill-remaining-space"></span>
+        <mat-card style="max-width: 400px;">
+            <mat-card-header>
+                <mat-card-title>
+                    Login
+                </mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+                <mat-form-field style="width: 350px; padding-left: 20px;">
+                    <input matInput placeholder="Username" [(ngModel)]="username" required>
+                </mat-form-field>
+                <mat-form-field style="width: 350px; padding-left: 20px; padding-bottom: 30px;">
+                    <input matInput placeholder="Password" [type]="hide ? 'password' : 'text'" [(ngModel)]="password" required>
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>
+                </mat-form-field>
+                <button style="width: 395px" (click)="onLogin()" mat-raised-button color="primary">Login</button>
+            </mat-card-content>
+        </mat-card>
+        <span class="fill-remaining-space"></span>
+    </div>
+</div>
