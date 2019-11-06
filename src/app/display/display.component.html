@@ -1,1 +1,18 @@
-<p>display works!</p>
+<div class="container">
+    <div style="padding-left: 20%; padding-right: 20%; display: flex">
+        <mat-toolbar >
+            <mat-icon>list</mat-icon>
+            Flights
+            <span class="fill-remaining-space"></span>
+            <span *ngIf="!isAdmin">
+                <button mat-raised-button  (click)="onLoginAsAdmin()">Login as Admin</button>
+            </span>
+            <span *ngIf="isAdmin">
+                <button mat-raised-button (click)="onAddNewFlight()"  color="primary">Add new flight</button>
+            </span>
+            <span *ngIf="isAdmin" style="padding-left: 5px;">
+                <button mat-raised-button (click)="onSignOut()">Sign Out</button>
+            </span>
+        </mat-toolbar>
+    </div>
+</div>
