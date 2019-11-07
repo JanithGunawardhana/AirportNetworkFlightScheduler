@@ -76,7 +76,7 @@ getFlightDetails() {
     console.log("sign out function");
     this.isAdmin = false;
     localStorage.removeItem('loginStatus');
-    return this.router.navigate(['']);
+    return this.router.navigate(['display']);
     location.reload();
   }
 

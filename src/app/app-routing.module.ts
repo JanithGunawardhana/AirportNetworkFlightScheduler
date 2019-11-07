@@ -7,7 +7,9 @@ import { DisplayComponent } from './display/display.component';
 const routes: Routes = [
   {path: 'login', component: LoginComponent},
   {path: '', component: DisplayComponent},
-  {path: ':admin', component: DisplayComponent}];
+  {path: ':admin', component: DisplayComponent},
+  {path: 'display', component: DisplayComponent}
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
