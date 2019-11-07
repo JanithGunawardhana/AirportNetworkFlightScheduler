@@ -77,6 +77,7 @@ getFlightDetails() {
     this.isAdmin = false;
     localStorage.removeItem('loginStatus');
     return this.router.navigate(['']);
+    location.reload();
   }
 
   onAddNewFlight() {
@@ -110,22 +111,24 @@ getFlightDetails() {
     dialogRef.afterClosed().subscribe(result => {
       console.log('The dialog was closed');
       console.log(result);
-      const data = {};
-      data['country_name'] = result.country;
-      data['flight_id'] = result.id;
-      data['flight_name'] = result.name;
-      data['destination'] = result.destination;
-      data['current_location'] = result.location;
-      if (result.city !== undefined){
-        if (result.city.trim() !== '') {
-          data['city_name'] = result.city;
+      if (result !== undefined) {
+        const data = {};
+        data['country_name'] = result.country;
+        data['flight_id'] = result.id;
+        data['flight_name'] = result.name;
+        data['destination'] = result.destination;
+        data['current_location'] = result.location;
+        if (result.city !== undefined){
+          if (result.city.trim() !== '') {
+            data['city_name'] = result.city;
+          }
         }
-      }
-      console.log(data);
-      if (modification === 'new') {
-        this.firestore.collection('flights').doc(result.id).set(data);
-      } else {
-        this.firestore.collection('flights').doc(result.id).update(data);
+        console.log(data);
+        if (modification === 'new') {
+          this.firestore.collection('flights').doc(result.id).set(data);
+        } else {
+          this.firestore.collection('flights').doc(result.id).update(data);
+        }
       }
     });
     this.flight_id = '';
