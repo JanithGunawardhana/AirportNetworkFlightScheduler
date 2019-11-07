@@ -1,18 +1,91 @@
 <div class="container">
-    <div style="padding-left: 20%; padding-right: 20%; display: flex">
+    <div style="padding-left: 10%; padding-right: 10%; display: flex">
         <mat-toolbar >
             <mat-icon>list</mat-icon>
             Flights
             <span class="fill-remaining-space"></span>
             <span *ngIf="!isAdmin">
-                <button mat-raised-button  (click)="onLoginAsAdmin()">Login as Admin</button>
+                <button mat-raised-button  (click)="onLoginAsAdmin()" color="primary">Login as Admin</button>
             </span>
             <span *ngIf="isAdmin">
                 <button mat-raised-button (click)="onAddNewFlight()"  color="primary">Add new flight</button>
             </span>
             <span *ngIf="isAdmin" style="padding-left: 5px;">
-                <button mat-raised-button (click)="onSignOut()">Sign Out</button>
+                <button mat-raised-button (click)="onSignOut()" color="warn">Sign Out</button>
             </span>
         </mat-toolbar>
+        <div>
+                
+
+        </div>
+    </div>
+    <div style="padding-left: 10%; padding-right: 10%;">
+            <mat-form-field  style="width: 100%;">
+                    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+            </mat-form-field>
+
+    </div>
+    
+    <div class="mat-elevation-z8" >
+        <table mat-table [dataSource]="dataSource" matSort>
+        
+            <!-- ID Column -->
+            <ng-container matColumnDef="flight_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;"> Flight_ID </th>
+                <td mat-cell *matCellDef="let row"> {{row.flight_id}} </td>
+            </ng-container>
+
+            <!-- Name Column -->
+            <ng-container matColumnDef="flight_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;"> Flight Name </th>
+                <td mat-cell *matCellDef="let row"> {{row.flight_name}} </td>
+            </ng-container>
+        
+            <!-- Destination Column -->
+            <ng-container matColumnDef="destination">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;"> Destination </th>
+                <td mat-cell *matCellDef="let row"> {{row.destination}} </td>
+            </ng-container>
+        
+        
+            <!-- Current Location Column -->
+            <ng-container matColumnDef="current_location">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;"> Current Location </th>
+                <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.current_location}} </td>
+            </ng-container>
+
+            <!-- Country Name Column -->
+            <ng-container matColumnDef="country_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;"> Country Name </th>
+                <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.country_name}} </td>
+            </ng-container>
+
+            <span *ngIf="isAdmin">
+                <ng-container matColumnDef="edit">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;" > Edit </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color" (click)="onEdit(row)" style="cursor: pointer;"> Edit </td>
+                </ng-container>
+            </span>
+            <!-- Edit Column -->
+            
+
+            <!-- Delete Column -->
+            <span *ngIf="isAdmin">
+                <ng-container matColumnDef="delete" >
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header style="font-size: 15px;" > Delete </th>
+                    <td mat-cell *matCellDef="let row" [style.color]="row.color" (click)="onDelete(row)" style="cursor: pointer;"> Delete </td>
+                </ng-container>
+            </span>
+            
+        
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+        </table>
+          
+        <mat-paginator [pageSizeOptions]="[5, 10, 25]"></mat-paginator>
+    </div>
+    <div *ngFor="let x of flightsn | async">
+        {{x | json}}
     </div>
 </div>

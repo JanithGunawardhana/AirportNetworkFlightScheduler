@@ -1,17 +1,28 @@
 <div>
     <h1 mat-dialog-title><mat-toolbar><mat-icon>list</mat-icon><span>Flight Details</span></mat-toolbar></h1>
     <div mat-dialog-content>
-        <p>Flight ID :</p>
         <mat-form-field>
-            <input matInput [(ngModel)]="data.name">
+            <input matInput [(ngModel)]="data.id" placeholder="Flight ID" required>
         </mat-form-field>
-        <p>Flight Name :</p>
+        <mat-form-field style="padding-left: 20px;">
+            <input matInput [(ngModel)]="data.name" placeholder="Flight Name" required>
+        </mat-form-field>
         <mat-form-field>
-            <input matInput [(ngModel)]="data.collection">
+            <input matInput [(ngModel)]="data.destination" placeholder="Destination" required>
+        </mat-form-field>
+        <mat-form-field style="padding-left: 20px;">
+            <input matInput [(ngModel)]="data.location" placeholder="Current Location" required>
+        </mat-form-field>
+        <mat-form-field>
+            <input matInput [(ngModel)]="data.country" placeholder="Country" required>
+        </mat-form-field>
+        <mat-form-field style="padding-left: 20px;">
+            <input matInput [(ngModel)]="data.city" placeholder="City">
         </mat-form-field>
     </div>
     <div mat-dialog-actions>
         <button mat-button (click)="onNoClick()">No Thanks</button>
-        <button [disabled]="(data.name=='')||(data.collection=='')" mat-button [mat-dialog-close]="data" cdkFocusInitial>Submit</button>
+        <button [disabled]="(data.name=='')||(data.id=='')||(data.location=='')||(data.country=='')||(data.destination=='')" 
+        mat-button [mat-dialog-close]="data" cdkFocusInitial>Submit</button>
     </div>
 </div>

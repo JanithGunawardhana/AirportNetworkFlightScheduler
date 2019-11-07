@@ -14,6 +14,8 @@ import * as Material from '@angular/material';
     Material.MatInputModule,
     Material.MatCardModule,
     Material.MatDialogModule,
+    Material.MatTableModule,
+    Material.MatPaginatorModule
   ],
   exports:[
     Material.MatToolbarModule,
@@ -23,6 +25,8 @@ import * as Material from '@angular/material';
     Material.MatInputModule,
     Material.MatCardModule,
     Material.MatDialogModule,
+    Material.MatTableModule,
+    Material.MatPaginatorModule
   ],
 })
 export class MaterialModule { }
