@@ -81,7 +81,7 @@ getFlightDetails() {
 
   onAddNewFlight() {
     console.log("add new");
-    this.openDialog();
+    this.openDialog('new');
   }
 
   onEdit(row) {
@@ -92,14 +92,15 @@ getFlightDetails() {
     this.current_location = row.current_location;
     this.country_name = row.current_location;
     this.city_name = row.city_name;
-    this.openDialog();
+    this.openDialog('edit');
   }
 
   onDelete(row){
-
+    console.log('delete fuction');
+    this.firestore.collection('flights').doc(row.flight_id).delete();
   }
 
-  openDialog(): void {
+  openDialog(modification): void {
     const dialogRef = this.dialog.open(FlightComponent, {
       width: '450px',
       data: {id:this.flight_id, name:this.flight_name, destination: this.destination,
@@ -115,9 +116,17 @@ getFlightDetails() {
       data['flight_name'] = result.name;
       data['destination'] = result.destination;
       data['current_location'] = result.location;
-      data['city_name'] = result.city;
+      if (result.city !== undefined){
+        if (result.city.trim() !== '') {
+          data['city_name'] = result.city;
+        }
+      }
       console.log(data);
-      this.firestore.collection('flights').doc(result.id).set(data);
+      if (modification === 'new') {
+        this.firestore.collection('flights').doc(result.id).set(data);
+      } else {
+        this.firestore.collection('flights').doc(result.id).update(data);
+      }
     });
     this.flight_id = '';
     this.flight_name = '';
