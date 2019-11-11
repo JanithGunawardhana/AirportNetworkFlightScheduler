@@ -1,8 +1,22 @@
-<div class="conteiner">
-  <mat-toolbar>
+<div class="conteiner" style="overflow: auto;">
+  <mat-toolbar style="background-color: #3F519D; color:whitesmoke; font-style:oblique; 
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif; font-size: 50px;
+  height: 500px;background-image: url('../assets/img2.jpg'); background-size: 100% 100%;">
+    <!--span class="fill-remaining-space"></span-->
+    <span style="padding-bottom:350px;">Airport Network Flight Scheduler</span>
     <span class="fill-remaining-space"></span>
-    <span>Airport Network Flight Scheduler</span>
-    <span class="fill-remaining-space"></span>
+    <span style="display: flex; padding-bottom:350px; padding-right: 20px; font-size: 15px; font-family:'Franklin Gothic Medium',
+     'Arial Narrow', Arial, sans-serif; font-style: normal; cursor: pointer;" (click)="onHome()"><mat-icon>home</mat-icon><span>Home</span></span>
+     <!--span style="padding-bottom:250px; padding-left: 30px; font-size: 15px; font-family:'Franklin Gothic Medium',
+     'Arial Narrow', Arial, sans-serif; font-style: normal; cursor: pointer;" (click)="onLogin()">Login as Admin</span-->
 </mat-toolbar>
 </div>
-<router-outlet></router-outlet>
+<router-outlet style="background-image: black;"></router-outlet>
+<mat-card style="display: flex; background-color:lightgrey; height: 150px; color: grey;">
+    <span class="fill-remaining-space"></span>
+  <mat-card-header>
+    <mat-card-title>Airport Network Flight Scheduler</mat-card-title>
+    <mat-card-subtitle style="text-align: center;">Group 9</mat-card-subtitle>
+  </mat-card-header>
+  <span class="fill-remaining-space"></span>
+</mat-card>

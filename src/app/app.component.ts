@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -7,4 +8,15 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Airport-Network-Flight-Scheduler';
+  constructor(private router: Router,){
+
+  }
+
+  onHome() {
+    return this.router.navigate(['']);
+  }
+
+  onLogin() {
+    return this.router.navigate(['/login/']);
+  }
 }
