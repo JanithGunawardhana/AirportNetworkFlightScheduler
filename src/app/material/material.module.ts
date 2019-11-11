@@ -15,7 +15,10 @@ import * as Material from '@angular/material';
     Material.MatCardModule,
     Material.MatDialogModule,
     Material.MatTableModule,
-    Material.MatPaginatorModule
+    Material.MatPaginatorModule,
+    Material.MatSortModule,
+    Material.MatChipsModule,
+    Material.MatProgressSpinnerModule
   ],
   exports:[
     Material.MatToolbarModule,
@@ -26,7 +29,10 @@ import * as Material from '@angular/material';
     Material.MatCardModule,
     Material.MatDialogModule,
     Material.MatTableModule,
-    Material.MatPaginatorModule
+    Material.MatPaginatorModule,
+    Material.MatSortModule,
+    Material.MatChipsModule,
+    Material.MatProgressSpinnerModule
   ],
 })
 export class MaterialModule { }
