@@ -9,6 +9,7 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 import { async } from '@angular/core/testing';
 import { DataSource } from '@angular/cdk/table';
+import { element } from 'protractor';
 
 export interface FlightData {
   flight_id: string;
@@ -24,11 +25,12 @@ export interface FlightData {
   templateUrl: './display.component.html',
   styleUrls: ['./display.component.css']
 })
-export class DisplayComponent implements OnInit {
+export class DisplayComponent {
   flightCollection: AngularFirestoreCollection<FlightData>;
   flights:Observable<FlightData[]>;
   isAdmin = false;
-  dataSource = new FlightDataSourse(this);
+  //dataSource = new FlightDataSourse(this);
+  dataSource;
   displayedColumns: string[]; 
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
@@ -47,7 +49,18 @@ export class DisplayComponent implements OnInit {
   this.flightCollection = firestore.collection('flights');
   this.flights = this.flightCollection.valueChanges();
   console.log(this.flightCollection);
-  
+  this.flightCollection.snapshotChanges().subscribe(item => {
+    const fl=[];
+    item.forEach(element => {
+      var y = element.payload.doc.data();
+      console.log(y);
+      fl.push(y);
+    })
+    this.dataSource = new MatTableDataSource(fl);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  })
+  //console.log(fl);
 
   console.log(localStorage.getItem('loginStatus') == 'true'); 
 
@@ -57,15 +70,31 @@ export class DisplayComponent implements OnInit {
   } else {
     this.displayedColumns = ['flight_id', 'flight_name', 'destination', 'current_location', 'country_name'];
   }
-  // this.dataSource = new MatTableDataSource(flights);
+  //console.log(this.dataSource.connect());
+  
 }
 
 getFlightDetails() {
     
 }
+ngOnInit(){
 
-  ngOnInit() {
-  }
+}
+
+  /*async ngOnInit() {
+    var fl = [];
+    this.flightCollection =await this.firestore.collection('flights');
+    await this.flightCollection.snapshotChanges().subscribe(item => {
+      item.forEach(element => {
+        var y = element.payload.doc.data();
+        console.log(y);
+        fl.push(y);
+      })
+    })
+    this.dataSource = new MatTableDataSource(fl);
+    this.dataSource.sort = this.sort;
+    this.dataSource.paginator = this.paginator;
+  }*/
 
   onLoginAsAdmin() {
     console.log("login function");
@@ -77,7 +106,6 @@ getFlightDetails() {
     this.isAdmin = false;
     localStorage.removeItem('loginStatus');
     return this.router.navigate(['display']);
-    location.reload();
   }
 
   onAddNewFlight() {
@@ -140,16 +168,16 @@ getFlightDetails() {
   }
 
   applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
-    filterValue.trim().toLowerCase();
-
-    /*if (this.dataSource.paginator) {
+    if (this.dataSource.paginator) {
       this.dataSource.paginator.firstPage();
-    }*/
+    }
   }
+  
 }
 
-export class FlightDataSourse extends DataSource<any> {
+/* export class FlightDataSourse extends DataSource<any> {
   constructor(private display: DisplayComponent){
     super();
   }
@@ -157,4 +185,4 @@ export class FlightDataSourse extends DataSource<any> {
     return this.display.flights;
   }
   disconnect(){}
-}
+}*/
