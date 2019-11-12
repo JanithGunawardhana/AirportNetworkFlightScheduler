@@ -7,9 +7,6 @@ import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { async } from '@angular/core/testing';
-import { DataSource } from '@angular/cdk/table';
-import { element } from 'protractor';
 
 export interface FlightData {
   flight_id: string;
@@ -29,7 +26,6 @@ export class DisplayComponent {
   flightCollection: AngularFirestoreCollection<FlightData>;
   flights:Observable<FlightData[]>;
   isAdmin = false;
-  //dataSource = new FlightDataSourse(this);
   dataSource;
   displayedColumns: string[]; 
 
@@ -60,7 +56,6 @@ export class DisplayComponent {
     this.dataSource.sort = this.sort;
     this.dataSource.paginator = this.paginator;
   })
-  //console.log(fl);
 
   console.log(localStorage.getItem('loginStatus') == 'true'); 
 
@@ -70,31 +65,12 @@ export class DisplayComponent {
   } else {
     this.displayedColumns = ['flight_id', 'flight_name', 'destination', 'current_location', 'country_name'];
   }
-  //console.log(this.dataSource.connect());
   
 }
 
-getFlightDetails() {
-    
-}
 ngOnInit(){
 
 }
-
-  /*async ngOnInit() {
-    var fl = [];
-    this.flightCollection =await this.firestore.collection('flights');
-    await this.flightCollection.snapshotChanges().subscribe(item => {
-      item.forEach(element => {
-        var y = element.payload.doc.data();
-        console.log(y);
-        fl.push(y);
-      })
-    })
-    this.dataSource = new MatTableDataSource(fl);
-    this.dataSource.sort = this.sort;
-    this.dataSource.paginator = this.paginator;
-  }*/
 
   onLoginAsAdmin() {
     console.log("login function");
@@ -176,13 +152,3 @@ ngOnInit(){
   }
   
 }
-
-/* export class FlightDataSourse extends DataSource<any> {
-  constructor(private display: DisplayComponent){
-    super();
-  }
-  connect():Observable<FlightData[]>{
-    return this.display.flights;
-  }
-  disconnect(){}
-}*/
